@@ -1,0 +1,21 @@
+import numpy as np
+import json
+import matplotlib.pyplot as plt
+from scipy.spatial import Delaunay
+
+# Charger les données JSON depuis un fichier local
+with open("velib_stations.json", "r", encoding="utf-8") as file:
+    data = json.load(file)
+
+# Liste des stations
+stations = data["data"]["stations"]
+
+
+# Extraire les coordonnées (lat, lon) et les stocker dans un tableau NumPy
+point = np.array([[station["lat"], station["lon"]] for station in stations])
+
+Triangulation = Delaunay(point)
+
+plt.triplot(point[:,0], point[:,1], Triangulation.simplices)
+plt.plot(point[:,0], point[:,1], 'o')
+plt.show()

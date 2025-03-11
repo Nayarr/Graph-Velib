@@ -1,0 +1,9 @@
+import pandas as pd
+import requests
+
+
+response = requests.get("https://velib-metropole-opendata.smovengo.cloud/opendata/Velib_Metropole/station_information.json")
+
+Velib = pd.DataFrame(response.json()['data'])
+
+print(Velib.head)
